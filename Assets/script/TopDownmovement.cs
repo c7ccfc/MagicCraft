@@ -128,7 +128,7 @@ public class TopDown : MonoBehaviour
          GameObject aoe = Instantiate(stabPrefab, transform.position, Quaternion.identity);
          aoe.transform.SetParent(transform);
 
-         aoe.transform.eulerAngles =  new Vector3(0, 0, angle);
+         //aoe.transform.eulerAngles =  new Vector3(0, 0, angle);
 
          /*
          stabPivot.SetActive(true);
