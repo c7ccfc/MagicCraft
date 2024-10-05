@@ -6,7 +6,7 @@ public class HurtsEnemies : MonoBehaviour
 {
     float damageAmount;
     public Collider2D hitbox;
-    public float dps;
+    public float dps;//damage per seconds
     public float duration;
 
     public int maxTargets;
