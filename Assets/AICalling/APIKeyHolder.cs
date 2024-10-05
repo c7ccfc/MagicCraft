@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "APIKeyHolder", menuName = "ScriptableObjects/APIKeyHolder", order = 1)]
-public class APIKeyHolding : ScriptableObject
+public class APIKeyHolder : ScriptableObject
 {
     [SerializeField] private string apiKey;
 
