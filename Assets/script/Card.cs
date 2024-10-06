@@ -118,7 +118,7 @@ public class Card : MonoBehaviour
     public void CastMagic(int ind)
     {
         if (equipped[ind] != null) {
-            // cast equipped[ind]
+            TopDown.Cast(equipped[ind]);
             Discard(ind);
             Refill(ind);
         }
@@ -129,4 +129,5 @@ public class Card : MonoBehaviour
         Thread.Sleep(2000);
         putIn(ind);
     }
+
 }

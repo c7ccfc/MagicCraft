@@ -5,9 +5,9 @@ using UnityEngine;
 public class TopDown : MonoBehaviour
 {
     public float speed = 150f;
-    public GameObject stabPrefab;
-    public GameObject AOEPrefab;
-    public GameObject ProjectilePrefab;
+    public static GameObject stabPrefab;
+    public static GameObject AOEPrefab;
+    public static GameObject ProjectilePrefab;
     private Animator animator;
     private Rigidbody2D rb;
 
@@ -56,7 +56,7 @@ public class TopDown : MonoBehaviour
         // Update Animator
         animator.SetBool("isWalking", isMoving);
     }
-      public void Projectile(float damage){
+      public static void Projectile(float damage){
          //  float projectileSpeed = 10f;
          //     float MaxLifeTime = 10.0f;
          //     float lifetime;
@@ -71,7 +71,8 @@ public class TopDown : MonoBehaviour
          GameObject proj = GameObject.Instantiate(ProjectilePrefab, transform.position, transform.rotation);
          proj.GetComponentInChildren<ProjectileMovement>().direction = closestEnemy.transform.position-transform.position;
       }
-    public void Stab(float damage)
+
+    public static void Stab(float damage)
     {
       //Search for closest enemy
       //Apply damage to closest enemy
@@ -161,7 +162,7 @@ public class TopDown : MonoBehaviour
         
    // }
 
-   public void AOE(float damage)
+   public static void AOE(float damage)
    {
 
       GameObject aoe = Instantiate(AOEPrefab, transform.position, Quaternion.identity);
@@ -174,4 +175,19 @@ public class TopDown : MonoBehaviour
       yield return new WaitForSeconds(.5f);
       stabPivot.SetActive(false);
     }*/
+
+    public static void Cast(Magic magic)
+    {
+        string type = magic.magicType;
+        if (type == "stab")
+        {
+            Stab(magic.magicDamage);
+        }else if (type == "projectile")
+        {
+            Projectile(magic.magicDamage);
+        }else if (type == "AOE")
+        {
+            Projectile(magic.magicDamage);
+        }
+    }
 }
