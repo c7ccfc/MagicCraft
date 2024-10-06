@@ -153,13 +153,23 @@ public class LineGenerator : MonoBehaviour
         string path = Application.dataPath + "/Drawings/" + magicName + ".json";
         if (File.Exists(path))
         {
+            // Create a new GameObject to act as the parent of the drawing
             GameObject lineParent = new GameObject("LineParent");
             string json = File.ReadAllText(path);
             DrawingData drawingData = JsonUtility.FromJson<DrawingData>(json);
 
+            // Load the line segment prefab from Resources folder
+            GameObject lineSegmentPrefab = Resources.Load<GameObject>("LinePrefab");
+            if (lineSegmentPrefab == null)
+            {
+                Debug.LogError("LinePrefab not found in Resources folder.");
+                return null;
+            }
+
+            // Instantiate all line segments under the new parent
             foreach (LineSegmentData segmentData in drawingData.lineSegments)
             {
-                GameObject lineSegment = Instantiate(Resources.Load<GameObject>("LineSegmentPrefab"), lineParent.transform);
+                GameObject lineSegment = Instantiate(lineSegmentPrefab, lineParent.transform);
                 RectTransform rectTransform = lineSegment.GetComponent<RectTransform>();
                 rectTransform.localPosition = segmentData.position;
                 rectTransform.localRotation = segmentData.rotation;
@@ -167,10 +177,11 @@ public class LineGenerator : MonoBehaviour
             }
 
             Debug.Log("Drawing loaded from " + path);
-            return lineParent;
+            return lineParent;  // Return the new GameObject representing the drawing
         }
 
         Debug.LogError("Drawing file not found at " + path);
         return null;
     }
+
 }

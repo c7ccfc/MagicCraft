@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class Card : MonoBehaviour
 {
-    List<Magic> equipped = new List<Magic>();
+    List<Magic> equipped = new List<Magic> {null,null,null,null};
     System.Random rnd = new System.Random();
     int numMagic;
 
@@ -16,8 +16,9 @@ public class Card : MonoBehaviour
     public Button button4;
 
     public GameObject card1;
-    public GameObject card1;
-    public GameObject card1; public GameObject card1;
+    public GameObject card2;
+    public GameObject card3;
+    public GameObject card4;
 
     // Start is called before the first frame update
     void Start()
@@ -25,13 +26,16 @@ public class Card : MonoBehaviour
         List<Magic> inInventory = InventoryManager.GetMagics();
         numMagic = inInventory.Count;
 
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < Mathf.Min(4, numMagic); i++)
         {
             int r = rnd.Next(inInventory.Count);
             Magic curr = inInventory[r];
             Magic copy = new Magic(curr.magicName, curr.magicDescription, curr.magicStat);
             Equip(copy, i);
         }
+
+        Magic test = new Magic("drawing", "", null);
+        Equip(test, 0);
 
         button1.onClick.AddListener(() => CastMagic(0));
         button2.onClick.AddListener(() => CastMagic(1));
@@ -45,37 +49,43 @@ public class Card : MonoBehaviour
 
     }
 
+
     public void Equip(Magic magic, int ind)
     {
         equipped[ind] = magic;
-        name = magic.magicName;
-        GameObject drawing = LineGenerator.LoadDrawing(name);
+        string magicName = magic.magicName;
 
-        GameObject card;
+        // Load the drawing as a new GameObject
+        GameObject drawing = LineGenerator.LoadDrawing(magicName);
+
+        GameObject card = null;
 
         switch (ind)
         {
             case 0:
                 card = card1;
+                break;
             case 1:
                 card = card2;
+                break;
             case 2:
                 card = card3;
+                break;
             case 3:
                 card = card4;
+                break;
         }
+
 
         if (drawing != null)
         {
-            card = GameObject.Find("card1");
-
             if (card != null)
             {
                 drawing.transform.SetParent(card.transform, false);
 
-                // Optionally, adjust the position and scale of the drawing
-                drawing.transform.localPosition = Vector3.zero; // Center it on card1
-                drawing.transform.localScale = Vector3.one; // Match the scale if needed
+                drawing.transform.localScale = new Vector3(1f / 3f, 1f / 3f, 1);
+                float upwardOffset = card.GetComponent<RectTransform>().rect.height / 10;
+                drawing.transform.localPosition = new Vector3(0, upwardOffset, 0);
             }
             else
             {
@@ -83,6 +93,7 @@ public class Card : MonoBehaviour
             }
         }
     }
+
 
     public void Discard(int ind)
     {
