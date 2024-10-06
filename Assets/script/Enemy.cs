@@ -13,14 +13,18 @@ public class Enemy : MonoBehaviour
     Transform target;
     Vector2 moveDirection;
   
+    //[SerializeField] FloatingHealthBar healthBar;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        //healthBar = GetComponentInChildren<FloatingHealthBar>();
     }
     
     private void Start()
     {
         Health=MaxHealth;
+        //healthBar.UpdateHealthBar(healthBar,maxHealth);
         target = GameObject.Find("Hexagon Flat-Top").transform;
     }
 
@@ -50,6 +54,7 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(float damageAmount)
     {
         Health-= damageAmount;
+        //healthBar.UpdateHealthBar(healthBar,maxHealth);
         if(Health<=0)
         {
             Destroy(gameObject);
