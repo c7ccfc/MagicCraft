@@ -74,37 +74,37 @@ public class TopDown : MonoBehaviour
     }
     public void Projectile(float damage)
     {
-      //Search for closest enemy
-      //Apply damage to closest enemy
-      //Show spike + orient it towards enemy
+      
       GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
       float minDist = 999f;
       GameObject closestEnemy = null;
       foreach (GameObject enemy in enemies){
-         if (Vector3.Distance(gameObject.transform.position, enemy.transform.position) < minDist){
+         float distance = Vector3.Distance(gameObject.transform.position, enemy.transform.position);
+         if (distance<minDist)
+         {
+            minDist = distance;
             closestEnemy = enemy;
          }
       }
-      // if (closestEnemy){
-      //    closestEnemy.GetComponent<Enemy>().TakeDamage(damage);
-      // }
-      //Rotate stabPivot to enemy, enable stabPivot
-      if (closestEnemy){
+      
+      
+      if (closestEnemy ){
          Vector3 direction = (closestEnemy.transform.position - transform.position).normalized;
          float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
          
+         GameObject spawnPoint = transform.Find("ProjectileSpawnPoint").gameObject;
          GameObject projectile = Instantiate(ProjectilePrefab, transform.position, Quaternion.identity);
          
-
          projectile.transform.eulerAngles =  new Vector3(0, 0, angle);
-
-         //write code to let the ball to go along this angle with some speed
-         /*
-         stabPivot.SetActive(true);
-         Vector3 direction = (closestEnemy.transform.position - transform.position).normalized;
-         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-         stabPivot.transform.eulerAngles = new Vector3(0, 0, angle);
-         StartCoroutine(DeleteStab());*/
+         float projectileSpeed = 10f;
+         Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();   
+      
+         if (rb!=null)
+         {
+            rb.velocity = direction*projectileSpeed;
+         }
+         //projectile.GetComponent<Rigidbody2D>().velocity = direction * projectileSpeed;
+        
       }
     }
     public void AOE(float damage)
