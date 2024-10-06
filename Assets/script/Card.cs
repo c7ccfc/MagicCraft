@@ -89,7 +89,7 @@ public class Card : MonoBehaviour
             }
             else
             {
-                Debug.LogError("card1 GameObject not found in the scene.");
+                Debug.LogError("card GameObject not found in the scene.");
             }
         }
     }
