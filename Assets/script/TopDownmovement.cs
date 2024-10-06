@@ -44,7 +44,7 @@ public class TopDown : MonoBehaviour
       //Apply damage to closest enemy
       //Show spike + orient it towards enemy
       GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-      float minDist = 999f;
+      float minDist = 9f;
       GameObject closestEnemy = null;
       foreach (GameObject enemy in enemies){
          if (Vector3.Distance(gameObject.transform.position, enemy.transform.position) < minDist){
