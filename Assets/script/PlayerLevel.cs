@@ -41,17 +41,6 @@ public class PlayerLevel : MonoBehaviour
     public void AddBaseMagic()
     {
         //to!!!do!!!!!!!!!
-        string magicName = "fire";
-
-        Dictionary<string, float> magicStat = new Dictionary<string, float>
-            {
-                { "attack", 10 },
-                { "cooldown", 2f }
-            };
-
-        Magic magic = new Magic(magicName, magicName, magicStat);
-
-        InventoryManager.AddItem(magic);
     }
 
     public void GotoMerge()
