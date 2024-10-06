@@ -5,7 +5,7 @@ using System.IO;
 using UnityEngine.SceneManagement;
 // using Newtonsoft.Json;
 
-public class UILineGenerator : MonoBehaviour
+public class LineGenerator : MonoBehaviour
 {
     public RectTransform paperRectTransform;  // Reference to the Paper RectTransform
     public GameObject lineSegmentPrefab;      // Prefab for each line segment (a UI Image)
