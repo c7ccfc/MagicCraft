@@ -55,7 +55,7 @@ public class InventoryManager : MonoBehaviour
     }
 
 
-    public List<Magic> GetMagics()
+    public static List<Magic> GetMagics()
     {
         return playerMagics;
     }

@@ -15,6 +15,7 @@ public class PlayerLevel : MonoBehaviour
     {
         level = 0;
         experience = 0f;
+        levelUpMenu.SetActive(false);
     }
 
     // Update is called once per frame
