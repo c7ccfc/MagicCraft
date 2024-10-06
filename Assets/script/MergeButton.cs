@@ -5,6 +5,7 @@ using TMPro; // add this line to use TextMeshProUGUI
 
 public class MergeButton : MonoBehaviour
 {
+    public static InventoryManager instance;
     // Start is called before the first frame update
     public TextMeshProUGUI cardName;
     public TextMeshProUGUI selectACard1;
@@ -90,22 +91,22 @@ public class MergeButton : MonoBehaviour
             string type = value[1];
             string damage = value[2];
 
-            if (InventoryManager.instance.playerMagics.ContainsKey(value[0]))
-            {
-                InventoryManager.instance.playerMagics[value[0]].IncreaseQuantity(1);
-            }
-            else
-            {
-                string hex = value[3];
-                float quantity = 1;
-                float damageFloat = float.Parse(damage);
+            //if (InventoryManager.instance.playerMagics.ContainsKey(value[0]))
+            //{
+            //    InventoryManager.instance.playerMagics[value[0]].IncreaseQuantity(1);
+            //}
+            //else
+            //{
+            //    string hex = value[3];
+            //    float quantity = 1;
+            //    float damageFloat = float.Parse(damage);
 
-                Magic newMagic = new Magic(magicName, type, damageFloat, hex, quantity);
+            //    Magic newMagic = new Magic(magicName, type, damageFloat, hex, quantity);
 
-                InventoryManager.instance.AddItem(newMagic);
-            }
-            InventoryManager.instance.RemoveMagic(magic1);
-            InventoryManager.instance.RemoveMagic(magic2);
+            //    InventoryManager.instance.AddItem(newMagic);
+            //}
+            //InventoryManager.instance.RemoveMagic(magic1);
+            //InventoryManager.instance.RemoveMagic(magic2);
 
             cardName.text = $"{magicName}";
             selectACard1.text = $"{type}";
