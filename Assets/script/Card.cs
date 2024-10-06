@@ -34,9 +34,6 @@ public class Card : MonoBehaviour
             Equip(copy, i);
         }
 
-        Magic test = new Magic("drawing", "", null);
-        Equip(test, 0);
-
         button1.onClick.AddListener(() => CastMagic(0));
         button2.onClick.AddListener(() => CastMagic(1));
         button3.onClick.AddListener(() => CastMagic(2));
