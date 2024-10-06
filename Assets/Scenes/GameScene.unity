@@ -296,7 +296,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 179919922}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1344305647}
+        m_TargetAssemblyTypeName: InventoryButton, Assembly-CSharp
+        m_MethodName: OpenInventory
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &179919922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1091,6 +1103,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1344305646}
   - component: {fileID: 1344305645}
+  - component: {fileID: 1344305647}
   m_Layer: 0
   m_Name: Button Manager
   m_TagString: Untagged
@@ -1126,6 +1139,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1181461557}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1344305647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1344305644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 314bd0c81d83845c2b30ecc376c3632a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1513705723
 GameObject:
   m_ObjectHideFlags: 0
