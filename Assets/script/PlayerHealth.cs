@@ -8,6 +8,8 @@ public class PlayerHealth : MonoBehaviour
     public float Health;
     public float MaxHealth;
     public Image HealthBar;
+
+    public float Health_Recover;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,5 +24,18 @@ public class PlayerHealth : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+    public void Heal()
+    {
+        if(Health<=MaxHealth-Health_Recover)
+        {
+            Health+=Health_Recover;
+        }
+        else if(MaxHealth>MaxHealth-Health_Recover)
+        {
+            Health = MaxHealth;
+        }
+        
+        
     }
 }
