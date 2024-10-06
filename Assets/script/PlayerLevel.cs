@@ -21,10 +21,7 @@ public class PlayerLevel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if killed enemy: increase experience by enemy exp
 
-
-        //if experience > threshold_exp[level]: increase lvl, exp=0, pause, go to level up screen
         if (experience >= thresh_exp[level]) {
             level++;
             experience = 0f;
@@ -35,23 +32,15 @@ public class PlayerLevel : MonoBehaviour
         }
     }
 
+    public void GainExperience(int amount)
+    {
+        experience += amount;
+
+    }
+
     public void AddBaseMagic()
     {
-        //for (Magic magic: )
-        //{
-
-        //}
-        string magicName = "fire";
-
-        Dictionary<string, float> magicStat = new Dictionary<string, float>
-            {
-                { "attack", 10 },
-                { "cooldown", 2f }
-            };
-
-        Magic magic = new Magic(magicName, magicName, magicStat);
-
-        InventoryManager.AddMagic(magic);
+        //to!!!do!!!!!!!!!
     }
 
     public void GotoMerge()
