@@ -148,27 +148,29 @@ public class UILineGenerator : MonoBehaviour
         SceneManager.LoadScene("CardMerging");
     }
 
-    //public void LoadDrawing()
-    //{
-    //    string path = Application.dataPath + "/Drawings/drawing.json";
-    //    if (File.Exists(path))
-    //    {
-    //        string json = File.ReadAllText(path);
-    //        DrawingData drawingData = JsonUtility.FromJson<DrawingData>(json);
+    public static GameObject LoadDrawing(string magicName)
+    {
+        string path = Application.dataPath + "/Drawings/" + magicName + ".json";
+        if (File.Exists(path))
+        {
+            GameObject lineParent = new GameObject("LineParent");
+            string json = File.ReadAllText(path);
+            DrawingData drawingData = JsonUtility.FromJson<DrawingData>(json);
 
-    //        ResetLines();
+            foreach (LineSegmentData segmentData in drawingData.lineSegments)
+            {
+                GameObject lineSegment = Instantiate(Resources.Load<GameObject>("LineSegmentPrefab"), lineParent.transform);
+                RectTransform rectTransform = lineSegment.GetComponent<RectTransform>();
+                rectTransform.localPosition = segmentData.position;
+                rectTransform.localRotation = segmentData.rotation;
+                rectTransform.localScale = segmentData.scale;
+            }
 
-    //        foreach (LineSegmentData segmentData in drawingData.lineSegments)
-    //        {
-    //            GameObject lineSegment = Instantiate(lineSegmentPrefab, lineParent.transform);
-    //            RectTransform rectTransform = lineSegment.GetComponent<RectTransform>();
-    //            rectTransform.localPosition = segmentData.position;
-    //            rectTransform.localRotation = segmentData.rotation;
-    //            rectTransform.localScale = segmentData.scale;
-    //            lineSegments.Add(lineSegment);
-    //        }
+            Debug.Log("Drawing loaded from " + path);
+            return lineParent;
+        }
 
-    //        Debug.Log("Drawing loaded from " + path);
-    //    }
-    //}
+        Debug.LogError("Drawing file not found at " + path);
+        return null;
+    }
 }
