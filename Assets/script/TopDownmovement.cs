@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TopDown : MonoBehaviour
 {
-    public float speed = 10.4f;
+    public float speed = 150f;
     public GameObject stabPrefab;
     public GameObject AOEPrefab;
     public GameObject ProjectilePrefab;
