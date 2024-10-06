@@ -7,6 +7,7 @@ public class InventoryManager : MonoBehaviour
 {
     public static InventoryManager instance;
 
+
     public Dictionary<string, Magic> playerMagics = new Dictionary<string, Magic>();
 
     private void Awake()
@@ -31,6 +32,7 @@ public class InventoryManager : MonoBehaviour
         AddItem(new Magic("Grass", "Heal", 50, "#228B22", 1));
 
     }
+    
     public void AddItem(Magic newMagic)
     {
         if (!playerMagics.ContainsKey(newMagic.magicName))
@@ -43,7 +45,7 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public void RemoveItem(Magic newMagic)
+    public void RemoveMagic(Magic newMagic)
     {
         if (playerMagics.ContainsKey(newMagic.magicName))
         {
@@ -62,7 +64,22 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public List<Magic> GetItems()
+    public void RemoveMagicByName(string magicName)
+    {
+        Magic magicToRemove = playerMagics.Find(magic => magic.magicName == magicName);
+        if (magicToRemove != null)
+        {
+            playerMagics.Remove(magicToRemove);
+            Debug.Log(magicName + " was removed from the inventory.");
+        }
+        else
+        {
+            Debug.LogWarning("Magic with name " + magicName + " not found.");
+        }
+    }
+
+
+    public static List<Magic> GetMagics()
     {
         return new List<Magic>(playerMagics.Values);
     }
