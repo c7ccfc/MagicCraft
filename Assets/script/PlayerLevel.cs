@@ -51,7 +51,7 @@ public class PlayerLevel : MonoBehaviour
 
         Magic magic = new Magic(magicName, magicName, magicStat);
 
-        InventoryManager.AddMagic(magic);
+        InventoryManager.AddItem(magic);
     }
 
     public void GotoMerge()

@@ -2,13 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static UnityEditor.Progress;
+using TMPro;
 
 public class InventoryManager : MonoBehaviour
 {
     public static InventoryManager instance;
 
-
     public Dictionary<string, Magic> playerMagics = new Dictionary<string, Magic>();
+    public TMP_Dropdown magicDropdown;
+    public TMP_Text selectCardText;
+    public TMP_Text selectCardText1;
+    public int food;
 
     private void Awake()
     {
@@ -64,23 +68,45 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public void RemoveMagicByName(string magicName)
-    {
-        Magic magicToRemove = playerMagics.Find(magic => magic.magicName == magicName);
-        if (magicToRemove != null)
-        {
-            playerMagics.Remove(magicToRemove);
-            Debug.Log(magicName + " was removed from the inventory.");
-        }
-        else
-        {
-            Debug.LogWarning("Magic with name " + magicName + " not found.");
-        }
-    }
 
-
-    public static List<Magic> GetMagics()
+    public List<Magic> GetMagics()
     {
         return new List<Magic>(playerMagics.Values);
     }
+
+    public void UpdateDropdown()
+    {
+        magicDropdown.ClearOptions();
+        List<string> magicNames = new List<string>();
+        foreach (Magic magic in playerMagics.Values)
+        {
+            magicNames.Add(magic.magicName);
+        }
+        magicDropdown.AddOptions(magicNames);
+    }
+
+    public void OnSelectCardButtonClick()
+    {
+        string selectedOption = magicDropdown.options[magicDropdown.value].text;
+
+        if (selectCardText.text == "Select a Card")
+        {
+            selectCardText.text = selectedOption;
+        }
+        else if (selectCardText1.text == "Select a Card")
+        {
+            selectCardText1.text = selectedOption;
+        }
+        else
+        {
+            // Both text boxes are full, do nothing
+            return;
+        }
+
+        // Remove the selected option from the dropdown
+        magicDropdown.options.RemoveAt(magicDropdown.value);
+        magicDropdown.value = 0; // Reset the dropdown value
+        magicDropdown.RefreshShownValue(); // Refresh the dropdown to show the updated options
+    }
 }
+
