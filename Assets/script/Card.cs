@@ -6,11 +6,13 @@ using UnityEngine.SceneManagement;
 using System.Threading;
 using Unity.VisualScripting;
 
+
 public class Card : MonoBehaviour
 {
     List<Magic> equipped = new List<Magic> {null,null,null,null};
     System.Random rnd = new System.Random();
     int numMagic;
+    InventoryManager inventoryManager;
 
     public Button button1;
     public Button button2;
@@ -22,11 +24,12 @@ public class Card : MonoBehaviour
     public GameObject card3;
     public GameObject card4;
 
-    public List<Magic> inInventory = InventoryManager.GetMagics();
+    public List<Magic> inInventory;
 
     // Start is called before the first frame update
     void Start()
     {
+        inInventory = inventoryManager.GetMagics();
         numMagic = inInventory.Count;
 
         for (int i = 0; i < Mathf.Min(4, numMagic); i++)
