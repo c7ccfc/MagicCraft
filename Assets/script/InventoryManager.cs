@@ -7,7 +7,7 @@ public class InventoryManager : MonoBehaviour
 {
     public static InventoryManager instance;
 
-    public List<Magic> playerMagics = new List<Magic>();
+    public Dictionary<string, Magic> playerMagics = new Dictionary<string, Magic>();
 
     private void Awake()
     {
@@ -22,26 +22,48 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        AddItem(new Magic("Air", "Projectile", 60, "#ADD8E6", 1));
+        AddItem(new Magic("Fire", "Stab", 40, "#FF4500", 1));
+        AddItem(new Magic("Earth", "AoE", 40, "#8B4513", 1));
+        AddItem(new Magic("Water", "AoE", 50, "#1E90FF", 1));
+        AddItem(new Magic("Grass", "Heal", 50, "#228B22", 1));
+
+    }
     public void AddItem(Magic newMagic)
     {
-        playerMagics.Add(newMagic);
+        if (!playerMagics.ContainsKey(newMagic.magicName))
+        {
+            playerMagics.Add(newMagic.magicName, newMagic);
+        }
+        else
+        {
+            playerMagics[newMagic.magicName].IncreaseQuantity(1);
+        }
     }
 
     public void RemoveItem(Magic newMagic)
     {
-        if (playerMagics.Contains(newMagic))
+        if (playerMagics.ContainsKey(newMagic.magicName))
         {
-            playerMagics.Remove(newMagic);
-            Debug.Log(newMagic.magicName + " was removed from the inventory.");
+            if (playerMagics[newMagic.magicName].magicQuantity > 1)
+            {
+                playerMagics[newMagic.magicName].IncreaseQuantity(-1);
+            }
+            else if (playerMagics[newMagic.magicName].magicQuantity == 1)
+            {
+                playerMagics.Remove(newMagic.magicName);
+            }            
         }
         else
         {
-            Debug.LogWarning("Item not found in inventory.");
+            return;
         }
     }
 
     public List<Magic> GetItems()
     {
-        return playerMagics;
+        return new List<Magic>(playerMagics.Values);
     }
 }

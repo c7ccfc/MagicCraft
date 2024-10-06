@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro; // add this line to use TextMeshProUGUI
 
 public class MergeButton : MonoBehaviour
 {
     // Start is called before the first frame update
+    public TextMeshProUGUI cardName;
+    public TextMeshProUGUI selectACard1;
+    public TextMeshProUGUI selectACard2;
     private Dictionary<string, List<string>> comboDict = new Dictionary<string, List<string>>
     {
         { "AirEarth", new List<string> { "Sandstorm", "AoE", "45", "#A89A8E" } },
@@ -71,19 +75,45 @@ public class MergeButton : MonoBehaviour
         
     }
 
-    List<string> MergeReturn(string item1, string item2)
+    void MergeReturn(Magic magic1, Magic magic2)
     {
+        string item1 = magic1.magicName;
+        string item2 = magic2.magicName;
+        
         List<string> currItemList = new List<string> { item1, item2 };
         currItemList.Sort();
 
         string dictCheck = string.Join("", currItemList);
         if (comboDict.TryGetValue(dictCheck, out List<string> value))
         {
-            return value;
+            string magicName = value[0];
+            string type = value[1];
+            string damage = value[2];
+
+            if (InventoryManager.instance.playerMagics.ContainsKey(value[0]))
+            {
+                InventoryManager.instance.playerMagics[value[0]].IncreaseQuantity(1);
+            }
+            else
+            {
+                string hex = value[3];
+                float quantity = 1;
+                float damageFloat = float.Parse(damage);
+
+                Magic newMagic = new Magic(magicName, type, damageFloat, hex, quantity);
+
+                InventoryManager.instance.AddItem(newMagic);
+            }
+            InventoryManager.instance.RemoveItem(magic1);
+            InventoryManager.instance.RemoveItem(magic2);
+
+            cardName.text = $"{magicName}";
+            selectACard1.text = $"{type}";
+            selectACard2.text = $"{damage}";
         }
         else
         {
-            return null;
+            return;
         }
     }
 }
