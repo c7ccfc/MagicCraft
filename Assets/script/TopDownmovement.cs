@@ -5,9 +5,9 @@ using UnityEngine;
 public class TopDown : MonoBehaviour
 {
     public float speed = 150f;
-    public static GameObject stabPrefab;
-    public static GameObject AOEPrefab;
-    public static GameObject ProjectilePrefab;
+    public GameObject stabPrefab;
+    public GameObject AOEPrefab;
+    public GameObject ProjectilePrefab;
     private Animator animator;
     private Rigidbody2D rb;
 
@@ -56,7 +56,7 @@ public class TopDown : MonoBehaviour
         // Update Animator
         animator.SetBool("isWalking", isMoving);
     }
-      public static void Projectile(float damage){
+      public void Projectile(float damage){
          //  float projectileSpeed = 10f;
          //     float MaxLifeTime = 10.0f;
          //     float lifetime;
@@ -72,7 +72,7 @@ public class TopDown : MonoBehaviour
          proj.GetComponentInChildren<ProjectileMovement>().direction = closestEnemy.transform.position-transform.position;
       }
 
-    public static void Stab(float damage)
+    public void Stab(float damage)
     {
       //Search for closest enemy
       //Apply damage to closest enemy
@@ -162,7 +162,7 @@ public class TopDown : MonoBehaviour
         
    // }
 
-   public static void AOE(float damage)
+   public void AOE(float damage)
    {
 
       GameObject aoe = Instantiate(AOEPrefab, transform.position, Quaternion.identity);
@@ -176,7 +176,7 @@ public class TopDown : MonoBehaviour
       stabPivot.SetActive(false);
     }*/
 
-    public static void Cast(Magic magic)
+    public void Cast(Magic magic)
     {
         string type = magic.magicType;
         if (type == "stab")

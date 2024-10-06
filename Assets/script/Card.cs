@@ -13,6 +13,7 @@ public class Card : MonoBehaviour
     System.Random rnd = new System.Random();
     int numMagic;
     InventoryManager inventoryManager;
+    TopDown topdown = new TopDown();
 
     public Button button1;
     public Button button2;
@@ -31,6 +32,8 @@ public class Card : MonoBehaviour
     {
         inInventory = inventoryManager.GetMagics();
         numMagic = inInventory.Count;
+        GameObject player = GameObject.FindGameObjectsWithTag("Player")[0];
+        topdown = player.GetComponent<TopDown>();
 
         for (int i = 0; i < Mathf.Min(4, numMagic); i++)
         {
@@ -118,7 +121,7 @@ public class Card : MonoBehaviour
     public void CastMagic(int ind)
     {
         if (equipped[ind] != null) {
-            TopDown.Cast(equipped[ind]);
+            topdown.Cast(equipped[ind]);
             Discard(ind);
             Refill(ind);
         }
