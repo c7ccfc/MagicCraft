@@ -7,7 +7,7 @@ public class InventoryManager : MonoBehaviour
 {
     public static InventoryManager instance;
 
-    public List<Magic> playerMagics = new List<Magic>();
+    public static List<Magic> playerMagics = new List<Magic>();
 
     private void Awake()
     {
@@ -22,7 +22,7 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public void AddMagic(Magic newMagic)
+    public static void AddMagic(Magic newMagic)
     {
         playerMagics.Add(newMagic);
     }

@@ -17,4 +17,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/InventoryScene.unity
     guid: 65d80f2fea24c432f906f7a2ad5ce77a
+  - enabled: 1
+    path: Assets/Scenes/CardMerging.unity
+    guid: c5c089e292cdf3c48a96d52d3d252c68
+  - enabled: 1
+    path: Assets/Scenes/DrawingScene.unity
+    guid: e1f2e68f1c4144c33ba0f110ff5262d5
   m_configObjects: {}
