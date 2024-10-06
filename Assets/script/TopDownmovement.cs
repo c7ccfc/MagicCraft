@@ -56,7 +56,21 @@ public class TopDown : MonoBehaviour
         // Update Animator
         animator.SetBool("isWalking", isMoving);
     }
-
+      public void Projectile(float damage){
+         //  float projectileSpeed = 10f;
+         //     float MaxLifeTime = 10.0f;
+         //     float lifetime;
+         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+         float minDist = 999f;
+         GameObject closestEnemy = null;
+         foreach (GameObject enemy in enemies){
+            if (Vector3.Distance(gameObject.transform.position, enemy.transform.position) < minDist){
+               closestEnemy = enemy;
+            }
+         }
+         GameObject proj = GameObject.Instantiate(ProjectilePrefab, transform.position, transform.rotation);
+         proj.GetComponentInChildren<ProjectileMovement>().direction = closestEnemy.transform.position-transform.position;
+      }
     public void Stab(float damage)
     {
       //Search for closest enemy
@@ -91,48 +105,69 @@ public class TopDown : MonoBehaviour
          StartCoroutine(DeleteStab());*/
       }
     }
-    public void Projectile(float damage)
-    {
+
+
+   //  public void Projectile(float damage)
+   //  {
+   //    private float projectileSpeed = 10f;
+   //    private float MaxLifeTime = 10.0f;
+   //    private float lifetime;
+   //    GameObject.Instantiate(ProjectilePrefab, tranform.position, transform.rotation);
+   //  }
       
-      GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-      float minDist = 999f;
-      GameObject closestEnemy = null;
-      foreach (GameObject enemy in enemies){
-         float distance = Vector3.Distance(gameObject.transform.position, enemy.transform.position);
-         if (distance<minDist)
-         {
-            minDist = distance;
-            closestEnemy = enemy;
-         }
-      }
+   //    GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+   //    float minDist = 999f;
+   //    GameObject closestEnemy = null;
+   //    foreach (GameObject enemy in enemies){
+   //       float distance = Vector3.Distance(gameObject.transform.position, enemy.transform.position);
+   //       if (distance<minDist)
+   //       {
+   //          minDist = distance;
+   //          closestEnemy = enemy;
+   //       }
+   //    }
       
       
-      if (closestEnemy ){
-         Vector3 direction = (closestEnemy.transform.position - transform.position).normalized;
-         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+   //       if (closestEnemy )
+   //       {
+   //          Vector3 direction = (closestEnemy.transform.position - transform.position).normalized;
+   //          float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            
+   //          //GameObject spawnPoint = transform.Find("ProjectileSpawnPoint").gameObject;
+   //          GameObject projectile = Instantiate(ProjectilePrefab, transform.position, Quaternion.identity);
+            
+   //          projectile.transform.eulerAngles =  new Vector3(0, 0, angle);
+            
+   //          Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();   
          
-         GameObject spawnPoint = transform.Find("ProjectileSpawnPoint").gameObject;
-         GameObject projectile = Instantiate(ProjectilePrefab, transform.position, Quaternion.identity);
-         
-         projectile.transform.eulerAngles =  new Vector3(0, 0, angle);
-         float projectileSpeed = 10f;
-         Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();   
-      
-         if (rb!=null)
-         {
-            rb.velocity = direction*projectileSpeed;
-         }
-         //projectile.GetComponent<Rigidbody2D>().velocity = direction * projectileSpeed;
+   //          if (rb!=null)
+   //          {
+   //             //void start()
+   //             //{
+   //             //   lifetime=0;   
+   //             //}
+   //             // void FixedUpdate()
+   //             //{
+   //             //  lifetime+= Time.fixedDeltaTime;
+   //             //   transform.position += transform.forward*projectileSpeed;
+   //             //   if(lifetime>MaxLifeTime)
+   //             //   {
+   //             //      Destroy(gameObject);
+   //             //   }
+   //             //}
+   //             // rb.velocity = direction*projectileSpeed;
+   //          }
+   //       }
         
-      }
-    }
-    public void AOE(float damage)
-    {
+   // }
 
-         GameObject aoe = Instantiate(AOEPrefab, transform.position, Quaternion.identity);
-         aoe.transform.SetParent(transform);
+   public void AOE(float damage)
+   {
 
-    }
+      GameObject aoe = Instantiate(AOEPrefab, transform.position, Quaternion.identity);
+      aoe.transform.SetParent(transform);
+
+   }
     /*
     IEnumerator DeleteStab()
     {
