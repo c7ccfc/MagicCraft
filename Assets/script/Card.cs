@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 using UnityEngine.SceneManagement;
+using System.Threading;
+using Unity.VisualScripting;
 
 public class Card : MonoBehaviour
 {
@@ -20,18 +22,16 @@ public class Card : MonoBehaviour
     public GameObject card3;
     public GameObject card4;
 
+    public List<Magic> inInventory = InventoryManager.GetMagics();
+
     // Start is called before the first frame update
     void Start()
     {
-        List<Magic> inInventory = InventoryManager.GetMagics();
         numMagic = inInventory.Count;
 
         for (int i = 0; i < Mathf.Min(4, numMagic); i++)
         {
-            int r = rnd.Next(inInventory.Count);
-            Magic curr = inInventory[r];
-            Magic copy = new Magic(curr.magicName, curr.magicDescription, curr.magicStat);
-            Equip(copy, i);
+            putIn(i);
         }
 
         button1.onClick.AddListener(() => CastMagic(0));
@@ -44,6 +44,20 @@ public class Card : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public void putIn(int ind)
+    {
+        int r = rnd.Next(inInventory.Count);
+        Magic curr = inInventory[r];
+        Magic copy = new Magic(
+            curr.magicName,
+            curr.magicType,
+            curr.magicDamage,
+            curr.hexColor,
+            curr.magicQuantity
+        );
+        Equip(copy, ind);
     }
 
 
@@ -100,7 +114,16 @@ public class Card : MonoBehaviour
 
     public void CastMagic(int ind)
     {
-        // cast equipped[ind]
-        // delete equipped[ind]
+        if (equipped[ind] != null) {
+            // cast equipped[ind]
+            Discard(ind);
+            Refill(ind);
+        }
+    }
+
+    public void Refill(int ind)
+    {
+        Thread.Sleep(2000);
+        putIn(ind);
     }
 }

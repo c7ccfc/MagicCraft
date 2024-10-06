@@ -104,8 +104,8 @@ public class MergeButton : MonoBehaviour
 
                 InventoryManager.instance.AddItem(newMagic);
             }
-            InventoryManager.instance.RemoveItem(magic1);
-            InventoryManager.instance.RemoveItem(magic2);
+            InventoryManager.instance.RemoveMagic(magic1);
+            InventoryManager.instance.RemoveMagic(magic2);
 
             cardName.text = $"{magicName}";
             selectACard1.text = $"{type}";
