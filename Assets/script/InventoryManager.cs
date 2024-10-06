@@ -22,12 +22,12 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public void AddItem(Magic newMagic)
+    public void AddMagic(Magic newMagic)
     {
         playerMagics.Add(newMagic);
     }
 
-    public void RemoveItem(Magic newMagic)
+    public void RemoveMagic(Magic newMagic)
     {
         if (playerMagics.Contains(newMagic))
         {
@@ -36,11 +36,26 @@ public class InventoryManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Item not found in inventory.");
+            Debug.LogWarning("Magic not found in inventory.");
         }
     }
 
-    public List<Magic> GetItems()
+    public void RemoveMagicByName(string magicName)
+    {
+        Magic magicToRemove = playerMagics.Find(magic => magic.magicName == magicName);
+        if (magicToRemove != null)
+        {
+            playerMagics.Remove(magicToRemove);
+            Debug.Log(magicName + " was removed from the inventory.");
+        }
+        else
+        {
+            Debug.LogWarning("Magic with name " + magicName + " not found.");
+        }
+    }
+
+
+    public List<Magic> GetMagics()
     {
         return playerMagics;
     }
